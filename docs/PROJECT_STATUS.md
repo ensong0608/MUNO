@@ -1,6 +1,6 @@
 # Project Status
 
-Last updated: 2026-07-08
+Last updated: 2026-07-09
 
 ## Current State
 
@@ -33,6 +33,8 @@ The local `main` branch tracks `origin/main`.
 - Blender upstream checkout completed at commit `8704773557367b9955894409616bb13b9d5c064a`.
 - Source generation script completed successfully and created `source/` as a clean Blender copy.
 - Mixar reference map documented in `docs/MIXAR_REFERENCE_MAP.md`.
+- Mixar-style MUNO build scripts added and lightly validated.
+- MUNO build flow documented in `docs/MUNO_BUILD_FLOW.md`.
 
 ## Not Working Or Unresolved
 
@@ -41,18 +43,18 @@ The local `main` branch tracks `origin/main`.
 - Mixar repo cloned locally for analysis at `H:\TOOLS\Muno-reference\mixar-app`.
 - Full Blender build has not been validated yet.
 - `make.bat update` is blocked because Visual Studio Build Tools is installed without Blender-required C++ workload components.
-- No MUNO backend exists yet.
+- No MUNO backend exists yet; scripts default to local placeholder URLs.
 - No AI provider has been selected yet.
 - No MUNO branding assets exist yet.
 
 ## Next Engineering Steps
 
-1. Add Blender as the `upstream/` submodule.
-2. Add scripts for source generation.
-3. Clone or add Mixar as a local reference.
-4. Map Mixar overlay files, backend calls, and branding assets.
-5. Create a first MUNO overlay skeleton in `src/`.
-6. Document Windows build prerequisites.
+1. Import/adapt Mixar `src/` overlay into MUNO `src/`.
+2. Rebrand overlay identity/assets from Mixar to MUNO.
+3. Stub or redirect Mixar backend calls to local MUNO placeholders.
+4. Install missing Visual Studio Build Tools C++ workload when approved.
+5. Put `cmake` on PATH or install the Blender-required CMake version.
+6. Re-run Blender/MUNO build validation.
 
 ## Notes
 

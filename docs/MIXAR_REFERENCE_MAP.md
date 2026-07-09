@@ -185,3 +185,8 @@ That lowers product/release pressure, but it does not eliminate license and trad
 4. Rebrand app metadata and assets.
 5. Stub/redirect Mixar backend URLs.
 6. Continue build validation after installing the missing Visual Studio C++ workload.
+## MUNO Build Scripts Added
+
+MUNO now has adapted versions of Mixar's repo-level build scripts. These preserve the Mixar build pattern but use MUNO names and local backend defaults.
+
+The scripts are not a full working app by themselves. Mixar's `src/` overlay still needs to be imported/adapted, and the local machine still needs the missing Visual Studio C++ workload before a full build can complete.

@@ -208,3 +208,42 @@ Confirmed Mixar's actual structure:
 - Mixar backend is not included, but desktop-side clients and config references are present.
 
 Created `docs/MIXAR_REFERENCE_MAP.md` to record the copy/rebrand strategy.
+### Added Mixar-style MUNO build scripts
+
+Generated MUNO-adapted versions of Mixar's build/config scripts from the local Mixar reference repo.
+
+Added:
+
+- `.env.example`
+- `VERSION`
+- `Makefile`
+- `cmake/muno_overrides.cmake`
+- `scripts/generate_config.py`
+- `scripts/python_requirements.txt`
+- `scripts/windows/settings.bat`
+- `scripts/windows/init.bat`
+- `scripts/windows/overlay.bat`
+- `scripts/windows/build.bat`
+- `scripts/windows/build_clean.bat`
+- `scripts/windows/build_ms.bat`
+- `scripts/windows/build_ninja.bat`
+- `scripts/windows/install.bat`
+- `scripts/windows/check_overlay_conflicts.bat`
+- `scripts/unix/settings.sh`
+- `scripts/unix/init.sh`
+- `scripts/unix/overlay.sh`
+- `scripts/unix/build.sh`
+- `scripts/unix/build_clean.sh`
+- `scripts/unix/install.sh`
+- `scripts/unix/run.sh`
+- `scripts/unix/check_overlay_conflicts.sh`
+
+Adapted names from Mixar to MUNO in those scripts, including environment variables, app names, executable name, `muno.json`, and local default backend URLs.
+
+Validation performed:
+
+- `py scripts\generate_config.py --output tmp\muno.test.json` succeeded.
+- `cmd.exe /v:on /c "cd /d H:\TOOLS\Muno && call scripts\windows\settings.bat ..."` loaded expected MUNO variables.
+- `scripts\windows\overlay.bat` completed successfully with no stderr.
+
+Status: build script structure is working at the config/overlay level. Full compile remains blocked by missing Visual Studio C++ workload and by the fact that Mixar's full `src/` overlay has not yet been imported/adapted.
