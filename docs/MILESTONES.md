@@ -29,7 +29,7 @@ Status: next
 
 Deliverables:
 
-- Blender added as `upstream/` submodule;
+- Blender added as `upstream/` submodule; done
 - generated `source/` workflow scripted;
 - build prerequisites documented;
 - first local source generation succeeds.

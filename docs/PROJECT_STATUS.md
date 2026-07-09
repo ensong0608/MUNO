@@ -30,11 +30,12 @@ The local `main` branch tracks `origin/main`.
 - Product direction confirmed as a full Blender fork.
 - Target audience confirmed as general AI 3D users.
 - First AI workflow confirmed as prompt-to-scene.
+- Blender upstream checkout completed at commit `8704773557367b9955894409616bb13b9d5c064a`.
 
 ## Not Working Or Unresolved
 
 - GitHub connector still returns `404` for `ensong0608/MUNO`, even though local `git push` succeeds.
-- Blender submodule has not been added yet.
+- Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
 - Mixar repo has not been cloned locally for analysis yet.
 - No build environment has been validated yet.
 - No MUNO backend exists yet.

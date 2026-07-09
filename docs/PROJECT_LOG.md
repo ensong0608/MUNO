@@ -93,3 +93,29 @@ Clarified that adding Blender as a submodule means:
 - build output lives in `build/`.
 
 This is the same general method Mixar uses.
+### Added Blender upstream submodule
+
+Started adding Blender as the `upstream/` submodule:
+
+```text
+git submodule add https://projects.blender.org/blender/blender.git upstream
+```
+
+The first attempt timed out after about two minutes and left a partial `upstream/` folder with only a Git pointer file.
+
+The second long attempt timed out from the command wrapper after about fifteen minutes, but child Git processes continued running and completed the checkout. This is expected risk with a large repository on this machine/path: the wrapper timeout can fire while Git is still doing real checkout work.
+
+Final result:
+
+- root `.gitmodules` was created;
+- `upstream/` was registered as a Git submodule;
+- Blender was checked out at commit `8704773557367b9955894409616bb13b9d5c064a`;
+- no stale Git clone processes remained after completion.
+
+Status: working.
+
+Next related work:
+
+- commit the submodule pointer;
+- add scripts for generating MUNO's working `source/` tree from `upstream/` plus `src/`;
+- check whether Blender LFS/build dependency setup needs a separate step.
