@@ -185,3 +185,26 @@ Result: failed because the existing Build Tools install does not include `Micros
 Attempted to start Visual Studio Installer modification using Blender's `vsconfig`, but the action was blocked because it is a system-wide modification requiring explicit owner approval.
 
 Status: blocked pending approval to modify Visual Studio Build Tools or manual installation of the required C++ workload.
+### Cloned and inspected Mixar reference
+
+Cloned Mixar's public repo to:
+
+```text
+H:\TOOLS\Muno-reference\mixar-app
+```
+
+Inspected reference commit:
+
+```text
+47557b7 Merge pull request #914 from Mixar-AI/develop
+```
+
+Confirmed Mixar's actual structure:
+
+- Blender is a submodule at `upstream/`;
+- app changes are in `src/`;
+- build scripts copy `upstream/` into `source/` and overlay `src/`;
+- Windows build flow uses `scripts/windows/settings.bat`, `overlay.bat`, and `build.bat`;
+- Mixar backend is not included, but desktop-side clients and config references are present.
+
+Created `docs/MIXAR_REFERENCE_MAP.md` to record the copy/rebrand strategy.

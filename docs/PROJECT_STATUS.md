@@ -32,12 +32,13 @@ The local `main` branch tracks `origin/main`.
 - First AI workflow confirmed as prompt-to-scene.
 - Blender upstream checkout completed at commit `8704773557367b9955894409616bb13b9d5c064a`.
 - Source generation script completed successfully and created `source/` as a clean Blender copy.
+- Mixar reference map documented in `docs/MIXAR_REFERENCE_MAP.md`.
 
 ## Not Working Or Unresolved
 
 - GitHub connector still returns `404` for `ensong0608/MUNO`, even though local `git push` succeeds.
 - Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
-- Mixar repo has not been cloned locally for analysis yet.
+- Mixar repo cloned locally for analysis at `H:\TOOLS\Muno-reference\mixar-app`.
 - Full Blender build has not been validated yet.
 - `make.bat update` is blocked because Visual Studio Build Tools is installed without Blender-required C++ workload components.
 - No MUNO backend exists yet.
