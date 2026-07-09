@@ -49,7 +49,7 @@ Rationale: the requested local project path is on Windows and the immediate goal
 
 Linux/macOS support can be added after the Windows build is understood.
 
-## D005: Current Local Repo Root
+## D005: Local Repo Root
 
 The intended local repository root is:
 
@@ -57,11 +57,52 @@ The intended local repository root is:
 H:\TOOLS\Muno
 ```
 
-There is currently also an empty nested Git repo at:
+An accidental empty nested Git repo was created by GitHub Desktop at:
 
 ```text
 H:\TOOLS\Muno\MUNO
 ```
 
-This appears to have been created by GitHub Desktop. Do not delete or move it until the owner confirms whether GitHub Desktop should point at `H:\TOOLS\Muno` or `H:\TOOLS\Muno\MUNO`.
+The owner confirmed it should be removed. It contained only its own `.git` folder and was deleted.
 
+GitHub Desktop should use `H:\TOOLS\Muno` as the repository root.
+
+## D006: Product Form
+
+MUNO will be a full Blender fork, following the same broad approach as Mixar.
+
+We are not starting as a lightweight Blender add-on.
+
+Rationale: the goal is to create a custom AI-enabled Blender-based application, not merely install a panel into stock Blender.
+
+## D007: Target User
+
+The first target audience is general AI 3D users.
+
+This means the first version should prioritize clear end-to-end creation workflows over niche professional tooling.
+
+## D008: AI Workflow Order
+
+MUNO will build AI workflows one at a time.
+
+Initial priority order:
+
+1. prompt-to-scene;
+2. prompt-to-model;
+3. image-to-3D;
+4. edit selected object with natural language;
+5. materials and textures;
+6. animation.
+
+## D009: Blender Submodule Meaning
+
+Adding Blender as the `upstream/` submodule means the MUNO repo will store a pointer to Blender's official source repository instead of storing the full Blender source directly.
+
+This is how Mixar structured its repo:
+
+- `upstream/` points to Blender's official Git repository;
+- `src/` contains app-specific overlay changes;
+- scripts create a generated `source/` folder by copying Blender and applying the overlay;
+- builds happen from the generated `source/` folder.
+
+The submodule itself can be large when initialized locally, but the MUNO Git repo stays small because it commits only the submodule pointer and MUNO-specific files.

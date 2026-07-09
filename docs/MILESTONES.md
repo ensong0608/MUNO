@@ -2,7 +2,7 @@
 
 ## Milestone 0: Repo And Planning
 
-Status: in progress
+Status: complete
 
 Deliverables:
 
@@ -10,16 +10,22 @@ Deliverables:
 - remote configured as `https://github.com/ensong0608/MUNO.git`;
 - project plan committed;
 - engineering decisions documented;
-- open questions documented.
+- open questions documented;
+- project status documented;
+- project log documented.
 
 Exit criteria:
 
-- confirm final local repo root;
-- confirm online GitHub repo visibility and push access.
+- final local repo root confirmed as `H:\TOOLS\Muno`;
+- online Git push access confirmed.
+
+Notes:
+
+- GitHub connector visibility is unresolved, but local Git push access works.
 
 ## Milestone 1: Blender Base
 
-Status: not started
+Status: next
 
 Deliverables:
 
@@ -96,4 +102,3 @@ Deliverables:
 Exit criteria:
 
 - a user can create or modify a 3D scene through MUNO AI without Mixar infrastructure.
-

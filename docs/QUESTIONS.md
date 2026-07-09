@@ -5,23 +5,14 @@ These are the questions that matter before we start shaping MUNO's product and a
 ## Product Direction
 
 1. Who is MUNO primarily for?
-   - game developers;
-   - Roblox/UGC creators;
-   - Blender artists;
-   - product visualization;
-   - architects/interior designers;
-   - general AI 3D creation.
+   - Answer: general AI 3D users.
 
 2. What is the first workflow that must feel excellent?
-   - prompt-to-scene;
-   - prompt-to-model;
-   - image-to-3D;
-   - edit selected object with natural language;
-   - create materials/textures;
-   - generate animations;
-   - clean up imported AI meshes.
+   - Answer: prompt-to-scene first.
+   - Later workflows: prompt-to-model, image-to-3D, edit selected object, materials/textures, animation.
 
 3. Should MUNO be a full Blender fork or a lighter Blender add-on first?
+   - Answer: full Blender fork, like Mixar.
 
 ## AI And Backend
 
@@ -51,10 +42,11 @@ These are the questions that matter before we start shaping MUNO's product and a
 ## Engineering
 
 11. Should GitHub Desktop use `H:\TOOLS\Muno` as the repo root, or should we switch to the nested `H:\TOOLS\Muno\MUNO` folder it appears to have created?
+   - Answer: use `H:\TOOLS\Muno`.
+   - The accidental nested repo was removed.
 
 12. Are we comfortable downloading and building Blender locally now?
 
 13. Do we want to preserve Mixar history by forking, or keep MUNO history clean by rebuilding the overlay with Mixar as a reference?
 
 14. What license/notice files do we want at repo root for MUNO's own code and branding?
-
