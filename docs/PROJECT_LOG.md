@@ -119,3 +119,31 @@ Next related work:
 - commit the submodule pointer;
 - add scripts for generating MUNO's working `source/` tree from `upstream/` plus `src/`;
 - check whether Blender LFS/build dependency setup needs a separate step.
+### Added source generation workflow
+
+Created:
+
+- `scripts/windows/generate-source.ps1`
+- `scripts/unix/generate-source.sh`
+- `docs/SOURCE_WORKFLOW.md`
+- `docs/BUILD_PREREQUISITES.md`
+- `src/.gitkeep`
+
+Ran the Windows generator as a background process and monitored progress through logs under `tmp/`.
+
+Final source generation result:
+
+- `source/` was created successfully;
+- about 1.05 GB copied;
+- 20,277 files copied;
+- no copy failures;
+- no overlay files applied because `src/` currently contains only `.gitkeep`;
+- `source/` and `tmp/` are ignored by Git.
+
+Status: working.
+
+Next related work:
+
+- validate Blender's update/build prerequisites;
+- run `make.bat update` from `source/` when approved;
+- then run the first development build.

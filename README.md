@@ -11,4 +11,11 @@ The project will follow the same maintainable structure used by Mixar:
 - `docs/` - project planning, architecture notes, and implementation decisions.
 
 The `source/` and `build/` directories should not be committed.
+## Development Docs
 
+- `docs/MUNO_PLAN.md` - full project plan.
+- `docs/PROJECT_STATUS.md` - current working/not-working state.
+- `docs/PROJECT_LOG.md` - chronological log of decisions, attempts, failures, and fixes.
+- `docs/ENGINEERING_DECISIONS.md` - durable technical decisions.
+- `docs/SOURCE_WORKFLOW.md` - how to generate `source/` from `upstream/` and `src/`.
+- `docs/BUILD_PREREQUISITES.md` - build dependency notes.
