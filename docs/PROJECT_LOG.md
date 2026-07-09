@@ -147,3 +147,41 @@ Next related work:
 - validate Blender's update/build prerequisites;
 - run `make.bat update` from `source/` when approved;
 - then run the first development build.
+### Tried Blender update/build prerequisite validation
+
+Checked available tools from a plain shell:
+
+- Git found;
+- Python launcher found;
+- CMake not found on PATH;
+- SVN not found on PATH;
+- `python` not found on PATH;
+- `cl` not found on PATH.
+
+Ran:
+
+```text
+make.bat update
+```
+
+Result: failed quickly because Blender could not detect Visual Studio.
+
+Found Visual Studio Build Tools 2022 installed at:
+
+```text
+C:\BuildTools
+```
+
+Tried `make.bat update` through Visual Studio environment setup. `LaunchDevCmd.bat` opened an interactive persistent shell and did not return to Blender's update command, so that wrapper was stopped.
+
+Tried:
+
+```text
+make.bat update 2022b verbose
+```
+
+Result: failed because the existing Build Tools install does not include `Microsoft.VisualStudio.Component.VC.Tools.x86.x64` / Desktop C++ workload components required by Blender.
+
+Attempted to start Visual Studio Installer modification using Blender's `vsconfig`, but the action was blocked because it is a system-wide modification requiring explicit owner approval.
+
+Status: blocked pending approval to modify Visual Studio Build Tools or manual installation of the required C++ workload.

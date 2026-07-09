@@ -39,6 +39,7 @@ The local `main` branch tracks `origin/main`.
 - Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
 - Mixar repo has not been cloned locally for analysis yet.
 - Full Blender build has not been validated yet.
+- `make.bat update` is blocked because Visual Studio Build Tools is installed without Blender-required C++ workload components.
 - No MUNO backend exists yet.
 - No AI provider has been selected yet.
 - No MUNO branding assets exist yet.

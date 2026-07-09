@@ -61,3 +61,43 @@ Expected behavior:
 - Keep `build/` generated and ignored.
 - Record every failed build prerequisite in `docs/PROJECT_LOG.md`.
 - Do not install system-wide dependencies without explicit approval.
+## Local Validation Results
+
+Initial validation on this machine found:
+
+- Git is available at `C:\Program Files\Git\cmd\git.exe`.
+- Python launcher is available at `C:\Windows\py.exe`.
+- `cmake` is not currently on PATH.
+- `svn` is not currently on PATH.
+- `python` is not currently on PATH, though `py` exists.
+- `cl` is not currently on PATH from a plain shell.
+- Visual Studio Build Tools 2022 is installed at `C:\BuildTools`.
+- Blender cannot detect the compiler because the required C++ workload component is missing.
+
+The failing Blender diagnostic was:
+
+```text
+make.bat update 2022b verbose
+```
+
+Important output:
+
+```text
+Visual Studio is detected but no suitable installation was found.
+Check the "Desktop development with C++" workload has been installed.
+Visual Studio 2022 not found
+```
+
+`vswhere` with Blender's required C++ component returned no matching instances:
+
+```text
+vswhere -all -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+```
+
+The Blender checkout provides the desired Visual Studio component list at:
+
+```text
+source\build_files\build_environment\windows\vsconfig
+```
+
+The next required machine-level action is to modify `C:\BuildTools` with that config, or manually install the same Visual Studio Build Tools C++ workload through Visual Studio Installer.
