@@ -1,0 +1,27 @@
+# Generated Blender trees
+/source/
+/build/
+
+# Local dependencies and temporary output
+/lib/
+/install/
+/dist/
+/tmp/
+/temp/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Logs
+*.log
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
