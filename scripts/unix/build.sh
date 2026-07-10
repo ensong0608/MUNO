@@ -81,25 +81,35 @@ cmake -C "$CMAKE_DIR/muno_overrides.cmake" \
     $CMAKE_GENERATOR_ARGS \
     -S "$SOURCE_DIR" \
     -B "$BUILD_ENV_DIR" \
+    -DCMAKE_BUILD_TYPE="$BLENDER_BUILD_ENV" \
+    -DMUNO_ENABLE_CUDA="$MUNO_ENABLE_CUDA" \
+    -DMUNO_ENABLE_OPTIX="$MUNO_ENABLE_OPTIX" \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 # Build (all platform-specific args handled in settings.sh)
 echo "Building Blender in $BLENDER_BUILD_ENV mode for MUNO environment: $MUNO_ENV"
 echo "Using $BUILD_CORES cores for parallel build"
-cmake --build "$BUILD_ENV_DIR" $BUILD_ARGS
-cmake --build "$BUILD_ENV_DIR" --target install --config "$BLENDER_BUILD_ENV"
-
-# Generate runtime configuration for the bundle
-echo "Generating runtime configuration for bundle..."
-BUNDLE_CONFIG_DIR="$BUILD_ENV_DIR/bin/MUNO.app/Contents/Resources/$BLENDER_VERSION/config"
-python3 "$ROOT_DIR/scripts/generate_config.py" --output "$BUNDLE_CONFIG_DIR/muno.json"
+cmake --build "$BUILD_ENV_DIR" --config "$BLENDER_BUILD_ENV" --parallel "$BUILD_CORES"
+cmake --build "$BUILD_ENV_DIR" --target install --config "$BLENDER_BUILD_ENV" --parallel "$BUILD_CORES"
 
 # Install Python packages using the generated Python binary
 echo "Installing Python packages for MUNO..."
 
 # Determine base path for embedded Python based on platform
 if [[ "$PLATFORM" == "macOS" ]]; then
-    PY_BASE="$BUILD_ENV_DIR/bin/MUNO.app/Contents/Resources"
+    PY_BASE=""
+    for app_bundle in \
+        "$BUILD_ENV_DIR/bin/MUNO.app" \
+        "$BUILD_ENV_DIR/bin/Blender.app"; do
+        if [[ -d "$app_bundle/Contents/Resources" ]]; then
+            PY_BASE="$app_bundle/Contents/Resources"
+            break
+        fi
+    done
+    if [[ -z "$PY_BASE" ]]; then
+        echo "Error: no MUNO.app or Blender.app bundle found under $BUILD_ENV_DIR/bin" >&2
+        exit 1
+    fi
 elif [[ "$PLATFORM" == "Linux" ]]; then
     PY_BASE="$BUILD_ENV_DIR/bin"
 else
@@ -107,19 +117,50 @@ else
     exit 1
 fi
 
+# Do not assume the resource directory exactly matches BLENDER_VERSION. This
+# also keeps packaging working across Blender patch/minor version updates.
+RESOURCE_VERSION="$BLENDER_VERSION"
+if [[ ! -d "$PY_BASE/$RESOURCE_VERSION/python" ]]; then
+    RESOURCE_VERSION=""
+    for version_dir in "$PY_BASE"/*; do
+        if [[ -d "$version_dir/python/bin" ]]; then
+            RESOURCE_VERSION="$(basename "$version_dir")"
+            break
+        fi
+    done
+fi
+if [[ -z "$RESOURCE_VERSION" ]]; then
+    echo "Error: embedded Python resources not found under $PY_BASE" >&2
+    exit 1
+fi
+
+# Generate runtime configuration in the platform-correct resource tree.
+echo "Generating runtime configuration for bundle..."
+BUNDLE_CONFIG_DIR="$PY_BASE/$RESOURCE_VERSION/config"
+python3 "$ROOT_DIR/scripts/generate_config.py" --output "$BUNDLE_CONFIG_DIR/muno.json"
+
 # Try common python binary names inside Blender's embedded Python
 PYTHON_BIN=""
 for candidate in \
-    "$PY_BASE/$BLENDER_VERSION/python/bin/python${PYTHON_VERSION}" \
-    "$PY_BASE/$BLENDER_VERSION/python/bin/python3" \
-    "$PY_BASE/$BLENDER_VERSION/python/bin/python"; do
+    "$PY_BASE/$RESOURCE_VERSION/python/bin/python${PYTHON_VERSION}" \
+    "$PY_BASE/$RESOURCE_VERSION/python/bin/python3" \
+    "$PY_BASE/$RESOURCE_VERSION/python/bin/python"; do
     if [[ -x "$candidate" ]]; then
         PYTHON_BIN="$candidate"
         break
     fi
 done
 
-SITE_PACKAGES="$PY_BASE/$BLENDER_VERSION/python/lib/python${PYTHON_VERSION}/site-packages"
+SITE_PACKAGES=""
+for site_dir in "$PY_BASE/$RESOURCE_VERSION/python/lib"/python*/site-packages; do
+    if [[ -d "$site_dir" ]]; then
+        SITE_PACKAGES="$site_dir"
+        break
+    fi
+done
+if [[ -z "$SITE_PACKAGES" ]]; then
+    SITE_PACKAGES="$PY_BASE/$RESOURCE_VERSION/python/lib/python${PYTHON_VERSION}/site-packages"
+fi
 REQUIREMENTS_FILE="$(dirname "$SCRIPT_DIR")/python_requirements.txt"
 
 if [[ -n "$PYTHON_BIN" ]]; then
@@ -150,10 +191,11 @@ if [[ -n "$PYTHON_BIN" ]]; then
         exit 1
     fi
 else
-    echo "Warning: Python binary not found under: $PY_BASE/$BLENDER_VERSION/python/bin"
+    echo "Error: Python binary not found under: $PY_BASE/$RESOURCE_VERSION/python/bin" >&2
+    exit 1
 fi
 
 # Done
 echo "=== Build Complete ==="
 echo "Python packages installed from: $REQUIREMENTS_FILE"
-echo "Run MUNO using: $BUILD_ENV_DIR/bin/MUNO.app/Contents/MacOS/MUNO"
+echo "Run MUNO using: $ROOT_DIR/scripts/unix/run.sh $MUNO_ENV"

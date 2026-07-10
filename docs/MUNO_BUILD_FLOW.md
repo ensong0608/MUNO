@@ -11,7 +11,7 @@ The owner currently wants MUNO for personal use, not commercial distribution. We
 ## Current Architecture
 
 ```text
-C:\DIG REPO\tools\Muno
+<repository root>
   upstream/   Blender source submodule
   src/        MUNO overlay files
   source/     generated working tree: upstream copied first, src overlaid second
@@ -114,7 +114,7 @@ Overlay validation result:
 
 ## Native Build Validation
 
-The baseline Windows Ninja build has been validated from:
+The baseline Windows Ninja build was historically validated from:
 
 ```text
 C:\DIG REPO\tools\Muno
@@ -134,12 +134,12 @@ set ROBOCOPY_THREADS=8
 scripts\windows\build_ninja.bat
 ```
 
-The current `muno.exe` is a baseline executable copy of Blender's built `blender.exe`. Deeper binary branding and the Mixar AI overlay are still pending.
+Those outputs belong to the historical `C:\DIG REPO\tools\Muno` workspace. The current Desktop clone has no generated source or build output. The earlier `muno.exe` was only a copied Blender 5.3-alpha baseline executable; it did not contain MUNO UI or AI features.
 
 ## Next Steps
 
-1. Import/adapt Mixar's `src/` overlay into MUNO's `src/`.
-2. Rebrand runtime identity and assets inside the overlay.
-3. Stub or redirect Mixar backend clients.
-4. Import/adapt Mixar's `src/` overlay.
-5. Re-run incremental build validation after overlay import.
+1. Pin and validate the agreed Blender 5.0 base in this clone.
+2. Import the usable public Mixar overlay in reviewable slices.
+3. Rebrand runtime identity and reconstruct missing native UI pieces.
+4. Replace Mixie/backend coupling with local Codex app-server.
+5. Re-run incremental build validation after every import slice.

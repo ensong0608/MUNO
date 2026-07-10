@@ -205,11 +205,11 @@ if defined CUDA_FOUND (
     "!CUDA_TOOLKIT_ROOT!\bin\nvcc.exe" --version 2>nul | findstr /C:"release"
     REM Set CUDA_PATH so CMake's find_package(CUDA) auto-detects the toolkit.
     set "CUDA_PATH=!CUDA_TOOLKIT_ROOT!"
-    set "CUDA_CMAKE_ARGS="
+    set "CUDA_CMAKE_ARGS=-DMUNO_ENABLE_CUDA=ON"
 ) else (
     echo Warning: CUDA toolkit not found. CUDA support will be disabled.
     echo   Install from: https://developer.nvidia.com/cuda-downloads
-    set "CUDA_CMAKE_ARGS=-DWITH_CYCLES_DEVICE_CUDA=OFF"
+    set "CUDA_CMAKE_ARGS=-DMUNO_ENABLE_CUDA=OFF"
 )
 
 REM --- OptiX SDK Detection ---
@@ -224,10 +224,11 @@ if defined OPTIX_FOUND (
     echo OptiX SDK    : !OPTIX_SDK_ROOT!
     REM Set OPTIX_ROOT_DIR env var so CMake's FindOptiX auto-detects the SDK.
     set "OPTIX_ROOT_DIR=!OPTIX_SDK_ROOT!"
+    set "CUDA_CMAKE_ARGS=!CUDA_CMAKE_ARGS! -DMUNO_ENABLE_OPTIX=ON"
 ) else (
     echo Warning: OptiX SDK not found. OptiX support will be disabled.
     echo   Install from: https://developer.nvidia.com/optix/downloads
-    set "CUDA_CMAKE_ARGS=!CUDA_CMAKE_ARGS! -DWITH_CYCLES_DEVICE_OPTIX=OFF"
+    set "CUDA_CMAKE_ARGS=!CUDA_CMAKE_ARGS! -DMUNO_ENABLE_OPTIX=OFF"
 )
 
 REM --- CUDA Cache Invalidation ---

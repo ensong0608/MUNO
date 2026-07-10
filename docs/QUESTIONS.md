@@ -17,13 +17,15 @@ These are the questions that matter before we start shaping MUNO's product and a
 ## AI And Backend
 
 4. Should the first backend be local-only, cloud-hosted, or hybrid?
+   - Answer: local Codex app-server first; generation providers may be cloud or local behind a neutral interface.
 
 5. Which AI providers do we want to evaluate first?
-   - OpenAI for chat/tool planning;
-   - Tripo, Meshy, Luma, Stability, or other 3D providers;
-   - local models where practical.
+   - Answer: Codex for chat, planning, and Blender tool use.
+   - Hunyuan remains desired for 3D workflows but is deferred.
+   - Other local or hosted 3D models can be added behind the same provider contract.
 
 6. Do we want user accounts and billing in the first version, or should the first version use local API keys only?
+   - Answer: no MUNO accounts or billing initially. Support ChatGPT authentication and `OPENAI_API_KEY` for Codex.
 
 7. Should generated assets be stored locally, in cloud storage, or both?
 
@@ -41,13 +43,17 @@ These are the questions that matter before we start shaping MUNO's product and a
 
 ## Engineering
 
-11. Should GitHub Desktop use `H:\TOOLS\Muno` as the repo root, or should we switch to the nested `H:\TOOLS\Muno\MUNO` folder it appears to have created?
-   - Answer at the time: use `H:\TOOLS\Muno`.
-   - Current update: use `C:\DIG REPO\tools\Muno` as the active local repo because it is on local storage and should build faster.
-   - The accidental nested repo was removed.
+11. Which local checkout is active?
+   - Current answer: the repository containing this file, presently `C:\Users\lawre\Desktop\PROJECTS\MUNO`.
+   - `H:\TOOLS\Muno` and `C:\DIG REPO\tools\Muno` are historical workspaces; the accidental nested repo was removed.
 
 12. Are we comfortable downloading and building Blender locally now?
 
 13. Do we want to preserve Mixar history by forking, or keep MUNO history clean by rebuilding the overlay with Mixar as a reference?
+   - Answer: keep intentional MUNO history and import/reconstruct reviewed slices from the public Mixar reference.
 
 14. What license/notice files do we want at repo root for MUNO's own code and branding?
+   - Answer: GPL license texts, NOTICE, REUSE metadata, source correspondence, and a trademark/identity policy are established on the foundation branch.
+
+15. What compatibility and branding target should guide the first import?
+   - Answer: functional/layout fidelity, entirely new MUNO branding, and a Blender 5.0 base.

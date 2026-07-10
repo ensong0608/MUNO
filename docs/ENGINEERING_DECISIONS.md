@@ -51,21 +51,21 @@ Linux/macOS support can be added after the Windows build is understood.
 
 ## D005: Local Repo Root
 
-The intended local repository root is:
+The active repository is the checkout containing this file. On the current machine that is:
 
 ```text
-C:\DIG REPO\tools\Muno
+C:\Users\lawre\Desktop\PROJECTS\MUNO
 ```
 
-An accidental empty nested Git repo was created by GitHub Desktop at:
+Build and setup instructions must be repo-relative. The earlier paths `H:\TOOLS\Muno` and `C:\DIG REPO\tools\Muno` are historical workspaces recorded in `PROJECT_LOG.md`, not current roots.
+
+An accidental empty nested Git repo was historically created at:
 
 ```text
 H:\TOOLS\Muno\MUNO
 ```
 
-The owner confirmed it should be removed. It contained only its own `.git` folder and was deleted.
-
-GitHub Desktop should use `C:\DIG REPO\tools\Muno` as the active repository root going forward. The old `H:\TOOLS\Muno` copy remains as a fallback.
+The owner confirmed removal; it contained only its own `.git` folder and was deleted.
 
 ## D006: Product Form
 
@@ -106,3 +106,38 @@ This is how Mixar structured its repo:
 - builds happen from the generated `source/` folder.
 
 The submodule itself can be large when initialized locally, but the MUNO Git repo stays small because it commits only the submodule pointer and MUNO-specific files.
+
+## D010: Fidelity And Branding
+
+MUNO targets functional and layout fidelity with Mixar, not a trademark-identical clone.
+
+All product-facing names, logos, icons, URLs, manifests, and identity must be MUNO-owned. Applicable source licenses and attribution remain intact.
+
+## D011: Initial Blender Version
+
+The first compatibility base is Blender 5.0.
+
+Rationale: matching Mixar's documented base reduces reconstruction and overlay-porting risk. The historical Blender 5.3-alpha build is useful build-system evidence but is not the current product target.
+
+## D012: Codex Agent Runtime
+
+Mixie will be replaced by a locally supervised `codex app-server` process using its structured protocol over standard I/O.
+
+MUNO will support both:
+
+- ChatGPT-managed authentication; and
+- `OPENAI_API_KEY` authentication.
+
+The integration must handle lifecycle, streamed events, sessions, approvals, cancellation, errors, and a typed boundary for Blender tools.
+
+## D013: Generation Provider Boundary
+
+3D generation, topology, UV, texture, and related jobs will use provider-neutral interfaces. UI and Codex tool contracts must not embed one vendor's API shape.
+
+Direct Hunyuan support remains a product goal but is deferred until the Blender 5.0 application, MUNO UI, and Codex workflow are established.
+
+## D014: Public Mixar Source Is A Partial Reference
+
+The public Mixar repository is not assumed to be a complete buildable product snapshot. Its hosted agent backend is unpublished, its Blender submodule gitlink is absent in the inspected revision, and referenced native Mixie Chat editor sources are missing.
+
+MUNO may adapt appropriately licensed public overlay code, but missing behavior must be independently reconstructed and reviewed.

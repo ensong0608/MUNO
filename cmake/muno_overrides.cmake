@@ -16,13 +16,21 @@ if(CMAKE_HOST_WIN32)
   set(CMAKE_C_FLAGS "/DWIN32 /D_WINDOWS /W3" CACHE STRING "C compiler flags" FORCE)
 endif()
 
-# Enable CUDA support for Cycles rendering
-set(WITH_CYCLES_DEVICE_CUDA ON CACHE BOOL "Enable Cycles NVIDIA CUDA compute support" FORCE)
-set(WITH_CYCLES_CUDA_BINARIES ON CACHE BOOL "Build Cycles NVIDIA CUDA binaries" FORCE)
-set(WITH_CUDA_DYNLOAD ON CACHE BOOL "Dynamically load CUDA libraries at runtime" FORCE)
+# NVIDIA SDKs are optional. Keep the clean-clone baseline portable and let
+# builders opt in explicitly with -DMUNO_ENABLE_CUDA=ON and/or
+# -DMUNO_ENABLE_OPTIX=ON. Command-line -D values override these initial-cache
+# defaults because this file is loaded with cmake -C.
+set(MUNO_ENABLE_CUDA OFF CACHE BOOL "Build Cycles CUDA support")
+set(MUNO_ENABLE_OPTIX OFF CACHE BOOL "Build Cycles OptiX support")
 
-# Enable OptiX support for Cycles ray-tracing (requires NVIDIA OptiX SDK)
-set(WITH_CYCLES_DEVICE_OPTIX ON CACHE BOOL "Enable Cycles NVIDIA OptiX support" FORCE)
+set(WITH_CYCLES_DEVICE_CUDA "${MUNO_ENABLE_CUDA}" CACHE BOOL
+    "Enable Cycles NVIDIA CUDA compute support" FORCE)
+set(WITH_CYCLES_CUDA_BINARIES "${MUNO_ENABLE_CUDA}" CACHE BOOL
+    "Build Cycles NVIDIA CUDA binaries" FORCE)
+set(WITH_CUDA_DYNLOAD "${MUNO_ENABLE_CUDA}" CACHE BOOL
+    "Dynamically load CUDA libraries at runtime" FORCE)
+set(WITH_CYCLES_DEVICE_OPTIX "${MUNO_ENABLE_OPTIX}" CACHE BOOL
+    "Enable Cycles NVIDIA OptiX support" FORCE)
 
 # sccache compiler launcher - auto-enabled when sccache is on PATH.
 # On Windows, Blender's platform_win32.cmake handles /Z7 and compiler launcher

@@ -1,73 +1,54 @@
 # Project Status
 
-Last updated: 2026-07-09
+Last updated: 2026-07-10
 
-## Current State
+## Active Checkout
 
-MUNO is in project setup and architecture planning.
-
-The active local repository now exists at:
+The active checkout for current work is the repository containing this file. On the present machine it is:
 
 ```text
-C:\DIG REPO\tools\Muno
+C:\Users\lawre\Desktop\PROJECTS\MUNO
 ```
 
-The previous `H:\TOOLS\Muno` copy is retained as a fallback/network-share copy.
+Remote: `https://github.com/ensong0608/MUNO.git`
 
-The GitHub remote is configured as:
+Commands and documentation should use paths relative to the repository root. Older absolute paths in `PROJECT_LOG.md` describe historical workspaces and are not current instructions.
 
-```text
-https://github.com/ensong0608/MUNO.git
-```
+## Current State Of This Clone
 
-The local `main` branch tracks `origin/main`.
+- Repository planning and build scaffolding exist.
+- `src/` contains only `.gitkeep`; no application overlay is present.
+- `upstream/` is initialized at Blender commit
+  `f52ba4dcdf5f669c1bc57f39a0e056be30d3ab60` (Blender 5.0.1 RC).
+- Blender's platform dependency bundle has not been downloaded in this clone.
+- `source/` and `build/` do not exist here.
+- The application cannot currently be run from this clone.
+- Mixar's public repository has been audited separately and is not a complete buildable product snapshot: its Blender gitlink and required native Mixie Chat editor sources are absent.
+- No Codex integration, MUNO runtime UI, or generation-provider adapter exists yet.
 
-## Working
+## Confirmed Decisions
 
-- Local repo initialized.
-- Remote configured.
-- Initial planning docs created.
-- Initial planning commits pushed to GitHub.
-- Accidental nested repo at `H:\TOOLS\Muno\MUNO` removed.
-- Product direction confirmed as a full Blender fork.
-- Target audience confirmed as general AI 3D users.
-- First AI workflow confirmed as prompt-to-scene.
-- Blender upstream checkout completed at commit `8704773557367b9955894409616bb13b9d5c064a`.
-- Blender upstream was later advanced by Blender's update command to commit `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`.
-- Source generation script completed successfully and created `source/` as a clean Blender copy.
-- Mixar reference map documented in `docs/MIXAR_REFERENCE_MAP.md`.
-- Mixar-style MUNO build scripts added and lightly validated.
-- MUNO build flow documented in `docs/MUNO_BUILD_FLOW.md`.
-- Mixar overlay import inventory documented in `docs/MIXAR_OVERLAY_IMPORT_PLAN.md`.
-- Visual Studio Build Tools C++ workload is installed and detected from `C:\BuildTools`.
-- Blender's Windows dependency bundle was downloaded into `upstream\lib\windows_x64` and copied into generated `source\lib\windows_x64`.
-- Current measured size: `upstream\lib\windows_x64` is about 6.51 GB; generated `source\lib\windows_x64` is also about 6.51 GB.
-- Workspace copied from `H:\TOOLS\Muno` to local storage at `C:\DIG REPO\tools\Muno` to avoid network-share build slowness.
-- First native Windows Ninja build completed successfully from the `C:` workspace.
-- Build output exists at `C:\DIG REPO\tools\Muno\build\Prod\bin`.
-- `muno.exe` exists as a copy of the current built `blender.exe` baseline.
-- Headless smoke test passed: built executable reported `MUNO_SMOKE_OK 5.3.0 Alpha`.
+- Functional and layout fidelity to Mixar, with independent MUNO branding.
+- Blender 5.0 as the initial compatibility base.
+- Local Codex app-server replaces Mixie as the agent runtime.
+- Both ChatGPT login and API-key authentication are supported.
+- Generation APIs use provider-neutral interfaces.
+- Hunyuan/model generation is retained as a goal but deferred until the core application and Codex workflow are working.
 
-## Not Working Or Unresolved
+## Historical Validation
 
-- GitHub connector still returns `404` for `ensong0608/MUNO`, even though local `git push` succeeds.
-- Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
-- Mixar repo cloned locally for analysis at `H:\TOOLS\Muno-reference\mixar-app`.
-- No MUNO backend exists yet; scripts default to local placeholder URLs.
-- No AI provider has been selected yet.
-- No MUNO branding assets exist yet.
-- Deep binary/app branding is not complete yet; the current `muno.exe` is a wrapper-level executable copy of the baseline Blender build.
-- Mixar's AI overlay has not been imported yet; `src/` still contains only the placeholder file.
+On 2026-07-09, a different checkout at `C:\DIG REPO\tools\Muno` generated a Blender source tree and completed a Blender 5.3-alpha baseline build. A copied executable passed a headless smoke test there. This proves that the earlier build scaffolding could drive a native build on that machine; it does **not** validate the current Desktop clone, Mixar overlay compatibility, MUNO branding, or the new Blender 5.0 target.
 
-## Next Engineering Steps
+The older `H:\TOOLS\Muno` and `C:\DIG REPO\tools\Muno` paths are historical only.
 
-1. Import/adapt Mixar `src/` overlay into MUNO `src/`.
-2. Rebrand overlay identity/assets from Mixar to MUNO.
-3. Stub or redirect Mixar backend calls to local MUNO placeholders.
-4. Import/adapt Mixar's AI overlay into MUNO `src/`.
-5. Validate that the imported overlay still builds incrementally.
-6. Begin prompt-to-scene backend/API design.
+## Immediate Work
 
-## Notes
+1. Repair repository/licensing foundations and pin an appropriate Blender 5.0 base.
+2. Initialize a clean Blender 5.0 source/build workflow in this clone.
+3. Import the usable public Mixar overlay in reviewable slices, preserving notices.
+4. Replace product identity and remove dependencies on Mixar services.
+5. Reconstruct the missing MUNO chat/editor surface where public Mixar sources are incomplete.
+6. Integrate local Codex app-server and expose controlled Blender tools.
+7. Add provider-neutral generation jobs; implement Hunyuan later.
 
-The Blender submodule will be a large local download. This is expected and matches Mixar's approach. The MUNO Git repo itself should remain small because it tracks the Blender source as a submodule pointer rather than committing Blender's full source tree.
+See `ARCHITECTURE_AND_ROADMAP.md` for phase gates.

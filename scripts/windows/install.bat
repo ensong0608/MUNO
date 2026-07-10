@@ -43,7 +43,7 @@ REM Reset ERRORLEVEL before cmake
 cmd /c "exit /b 0"
 
 echo Installing scripts using CMake...
-if defined BUILD_WITH_NINJA (
+if "%BUILD_WITH_NINJA%"=="1" (
     cmake --build "%BUILD_ENV_DIR%" --target install
 ) else (
     cmake --build "%BUILD_ENV_DIR%" --target install --config "%BLENDER_BUILD_ENV%"

@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2026 MUNO contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+version = 1
+
+# Repository metadata and build scaffolding initially adapted from Mixar App.
+# Files with their own SPDX headers take precedence over this annotation.
+[[annotations]]
+path = [
+  ".env.example",
+  ".gitattributes",
+  ".gitignore",
+  ".gitmodules",
+  "Makefile",
+  "VERSION",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = [
+  "2026 Adeveda Enterprises Private Limited",
+  "2026 MUNO contributors",
+]
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+# MUNO-authored planning and engineering documentation without inline headers.
+[[annotations]]
+path = "docs/**"
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 MUNO contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Workflow and test files contain their own SPDX headers. This annotation
+# covers the workflow directory itself if non-header metadata is added later.
+[[annotations]]
+path = ".github/**"
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 MUNO contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Blender is an external source checkout/submodule with its own authoritative
+# per-file notices. It is intentionally not assigned a blanket MUNO copyright.
+# Imported Mixar and ucupaint-derived files must retain their file-level SPDX
+# notices; see NOTICE.md and SOURCE_CORRESPONDENCE.md.
