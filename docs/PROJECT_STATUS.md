@@ -38,6 +38,7 @@ The local `main` branch tracks `origin/main`.
 - Mixar reference map documented in `docs/MIXAR_REFERENCE_MAP.md`.
 - Mixar-style MUNO build scripts added and lightly validated.
 - MUNO build flow documented in `docs/MUNO_BUILD_FLOW.md`.
+- Mixar overlay import inventory documented in `docs/MIXAR_OVERLAY_IMPORT_PLAN.md`.
 - Visual Studio Build Tools C++ workload is installed and detected from `C:\BuildTools`.
 - Blender's Windows dependency bundle was downloaded into `upstream\lib\windows_x64` and copied into generated `source\lib\windows_x64`.
 - Current measured size: `upstream\lib\windows_x64` is about 6.51 GB; generated `source\lib\windows_x64` is also about 6.51 GB.
