@@ -6,11 +6,13 @@ Last updated: 2026-07-09
 
 MUNO is in project setup and architecture planning.
 
-The local repository exists at:
+The active local repository now exists at:
 
 ```text
-H:\TOOLS\Muno
+C:\DIG REPO\tools\Muno
 ```
+
+The previous `H:\TOOLS\Muno` copy is retained as a fallback/network-share copy.
 
 The GitHub remote is configured as:
 
@@ -31,10 +33,15 @@ The local `main` branch tracks `origin/main`.
 - Target audience confirmed as general AI 3D users.
 - First AI workflow confirmed as prompt-to-scene.
 - Blender upstream checkout completed at commit `8704773557367b9955894409616bb13b9d5c064a`.
+- Blender upstream was later advanced by Blender's update command to commit `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`.
 - Source generation script completed successfully and created `source/` as a clean Blender copy.
 - Mixar reference map documented in `docs/MIXAR_REFERENCE_MAP.md`.
 - Mixar-style MUNO build scripts added and lightly validated.
 - MUNO build flow documented in `docs/MUNO_BUILD_FLOW.md`.
+- Visual Studio Build Tools C++ workload is installed and detected from `C:\BuildTools`.
+- Blender's Windows dependency bundle was downloaded into `upstream\lib\windows_x64` and copied into generated `source\lib\windows_x64`.
+- Current measured size: `upstream\lib\windows_x64` is about 6.51 GB; generated `source\lib\windows_x64` is also about 6.51 GB.
+- Workspace copied from `H:\TOOLS\Muno` to local storage at `C:\DIG REPO\tools\Muno` to avoid network-share build slowness.
 
 ## Not Working Or Unresolved
 
@@ -42,7 +49,7 @@ The local `main` branch tracks `origin/main`.
 - Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
 - Mixar repo cloned locally for analysis at `H:\TOOLS\Muno-reference\mixar-app`.
 - Full Blender build has not been validated yet.
-- `make.bat update` is blocked because Visual Studio Build Tools is installed without Blender-required C++ workload components.
+- `upstream/` has a local submodule pointer change from `8704773557367b9955894409616bb13b9d5c064a` to `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`; decide whether to keep and commit that newer Blender pin.
 - No MUNO backend exists yet; scripts default to local placeholder URLs.
 - No AI provider has been selected yet.
 - No MUNO branding assets exist yet.
@@ -52,9 +59,9 @@ The local `main` branch tracks `origin/main`.
 1. Import/adapt Mixar `src/` overlay into MUNO `src/`.
 2. Rebrand overlay identity/assets from Mixar to MUNO.
 3. Stub or redirect Mixar backend calls to local MUNO placeholders.
-4. Install missing Visual Studio Build Tools C++ workload when approved.
-5. Put `cmake` on PATH or install the Blender-required CMake version.
-6. Re-run Blender/MUNO build validation.
+4. Decide whether to keep the updated Blender submodule pin.
+5. Re-run Blender/MUNO build validation from the generated `source/` tree.
+6. Begin prompt-to-scene backend/API design.
 
 ## Notes
 

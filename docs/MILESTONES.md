@@ -6,7 +6,7 @@ Status: complete
 
 Deliverables:
 
-- local Git repository at `H:\TOOLS\Muno`;
+- local Git repository at `C:\DIG REPO\tools\Muno`;
 - remote configured as `https://github.com/ensong0608/MUNO.git`;
 - project plan committed;
 - engineering decisions documented;
@@ -16,7 +16,7 @@ Deliverables:
 
 Exit criteria:
 
-- final local repo root confirmed as `H:\TOOLS\Muno`;
+- final active local repo root confirmed as `C:\DIG REPO\tools\Muno`;
 - online Git push access confirmed.
 
 Notes:

@@ -42,7 +42,8 @@ These are the questions that matter before we start shaping MUNO's product and a
 ## Engineering
 
 11. Should GitHub Desktop use `H:\TOOLS\Muno` as the repo root, or should we switch to the nested `H:\TOOLS\Muno\MUNO` folder it appears to have created?
-   - Answer: use `H:\TOOLS\Muno`.
+   - Answer at the time: use `H:\TOOLS\Muno`.
+   - Current update: use `C:\DIG REPO\tools\Muno` as the active local repo because it is on local storage and should build faster.
    - The accidental nested repo was removed.
 
 12. Are we comfortable downloading and building Blender locally now?

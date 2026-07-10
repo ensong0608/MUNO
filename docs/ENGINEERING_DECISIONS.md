@@ -54,7 +54,7 @@ Linux/macOS support can be added after the Windows build is understood.
 The intended local repository root is:
 
 ```text
-H:\TOOLS\Muno
+C:\DIG REPO\tools\Muno
 ```
 
 An accidental empty nested Git repo was created by GitHub Desktop at:
@@ -65,7 +65,7 @@ H:\TOOLS\Muno\MUNO
 
 The owner confirmed it should be removed. It contained only its own `.git` folder and was deleted.
 
-GitHub Desktop should use `H:\TOOLS\Muno` as the repository root.
+GitHub Desktop should use `C:\DIG REPO\tools\Muno` as the active repository root going forward. The old `H:\TOOLS\Muno` copy remains as a fallback.
 
 ## D006: Product Form
 

@@ -29,7 +29,7 @@ This is the right pattern for MUNO because Blender is large and expensive to ven
 Planned local layout:
 
 ```text
-H:\TOOLS\Muno\
+C:\DIG REPO\tools\Muno\
   .git\
   README.md
   docs\
@@ -177,7 +177,7 @@ We should not attempt full release automation until a local developer build laun
 
 ## 9. Immediate Next Steps
 
-1. Create the local repo at `H:\TOOLS\Muno`.
+1. Create the local repo at `C:\DIG REPO\tools\Muno`.
 2. Add `.gitignore`, README, and this plan.
 3. Configure remote as `https://github.com/ensong0608/MUNO.git`.
 4. Add Blender upstream as a submodule.
@@ -193,11 +193,10 @@ Recommendation: start from Mixar's repo as a reference, but keep MUNO's committe
 
 Milestone 1 is complete when:
 
-- `H:\TOOLS\Muno` is a local Git repo;
+- `C:\DIG REPO\tools\Muno` is the active local Git repo;
 - the remote URL is configured;
 - Blender is added as a submodule;
 - generated directories are ignored;
 - project plan is committed locally;
 - we have a reproducible command sequence for initializing the source tree;
 - we know exactly where Mixar-specific backend calls and branding live.
-

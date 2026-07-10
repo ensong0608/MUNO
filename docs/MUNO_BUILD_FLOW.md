@@ -11,7 +11,7 @@ The owner currently wants MUNO for personal use, not commercial distribution. We
 ## Current Architecture
 
 ```text
-H:\TOOLS\Muno
+C:\DIG REPO\tools\Muno
   upstream/   Blender source submodule
   src/        MUNO overlay files
   source/     generated working tree: upstream copied first, src overlaid second

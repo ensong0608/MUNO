@@ -247,3 +247,77 @@ Validation performed:
 - `scripts\windows\overlay.bat` completed successfully with no stderr.
 
 Status: build script structure is working at the config/overlay level. Full compile remains blocked by missing Visual Studio C++ workload and by the fact that Mixar's full `src/` overlay has not yet been imported/adapted.
+
+### Installed Blender Windows build prerequisites
+
+Visual Studio Build Tools at `C:\BuildTools` now includes the C++ workload needed by Blender.
+
+Validated from the Visual Studio developer environment:
+
+- CMake is available from `C:\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe`.
+- MSVC `cl.exe` is available from `C:\BuildTools\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\cl.exe`.
+- Ninja is available from `C:\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe`.
+
+Important detail: CMake is available through the Visual Studio developer environment, not necessarily from a plain terminal PATH.
+
+### Downloaded Blender Windows platform libraries
+
+The first attempt to run Blender's update command from generated `source/` failed:
+
+```text
+fatal: C:/Program Files/Git/mingw64/libexec/git-core\git-submodule cannot be used without a working tree.
+```
+
+Reason: `source/` is a generated copy and is not a Git working tree. Blender's dependency update must run from `upstream/`, which is the real Blender Git checkout.
+
+The update was rerun from:
+
+```text
+H:\TOOLS\Muno\upstream
+```
+
+Result:
+
+- Blender's `lib/windows_x64` dependency bundle was downloaded and hydrated through Git LFS.
+- The update process advanced `upstream/` from `8704773557367b9955894409616bb13b9d5c064a` to `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`.
+- The MUNO overlay step was rerun and copied the hydrated libraries into generated `source/`.
+
+Measured sizes:
+
+- `H:\TOOLS\Muno\upstream\lib\windows_x64`: 19,078 files, about 6.51 GB.
+- `H:\TOOLS\Muno\source\lib\windows_x64`: 19,076 files, about 6.51 GB.
+- `H:\TOOLS\Muno\upstream`: about 7.56 GB total.
+- `H:\TOOLS\Muno\source`: about 7.56 GB total.
+
+Why this is needed: Blender's Windows build expects a large precompiled dependency bundle containing libraries such as Python and other third-party components. Mixar does not commit those files either; its public repo only records the Blender submodule and overlay files.
+
+Checked local Mixar reference folder:
+
+- `H:\TOOLS\Muno-reference\mixar-app\upstream`: missing.
+- `H:\TOOLS\Muno-reference\mixar-app\source`: missing.
+- `H:\TOOLS\Muno-reference\mixar-app\src`: about 0.02 GB.
+
+Conclusion: the local Mixar checkout cannot be used as the source for Blender or the Windows dependency bundle because those folders are not present there.
+
+### Copied MUNO workspace to local storage
+
+Copied the MUNO workspace from the network-backed `H:` drive to local storage:
+
+```text
+Source: H:\TOOLS\Muno
+Target: C:\DIG REPO\tools\Muno
+```
+
+Reason: `H:` maps to `\\aswsmain\users$\LLee`, which is a network share. Blender builds read and write a large number of small files, so building directly on a network share is likely to be much slower than building on local storage.
+
+Validation after copy:
+
+- Git remote is still `https://github.com/ensong0608/MUNO.git`.
+- Active working tree root is `C:/DIG REPO/tools/Muno`.
+- Blender `upstream` submodule commit is `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`.
+- `C:\DIG REPO\tools\Muno\upstream`: 39,359 files, about 7.56 GB.
+- `C:\DIG REPO\tools\Muno\source`: 39,358 files, about 7.56 GB.
+- `C:\DIG REPO\tools\Muno\upstream\lib\windows_x64`: 19,078 files, about 6.51 GB.
+- `C:\DIG REPO\tools\Muno\source\lib\windows_x64`: 19,076 files, about 6.51 GB.
+
+Status: use `C:\DIG REPO\tools\Muno` for build work going forward.
