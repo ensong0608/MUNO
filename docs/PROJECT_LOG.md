@@ -321,3 +321,13 @@ Validation after copy:
 - `C:\DIG REPO\tools\Muno\source\lib\windows_x64`: 19,076 files, about 6.51 GB.
 
 Status: use `C:\DIG REPO\tools\Muno` for build work going forward.
+
+### Fixed Windows build wrapper Visual Studio detection
+
+The Windows Ninja build wrapper originally searched only the default Visual Studio install locations under `Program Files`. This machine has Visual Studio Build Tools installed at:
+
+```text
+C:\BuildTools
+```
+
+Updated `scripts/windows/build.bat` to use `vswhere.exe` when locating `vcvarsall.bat`, so custom Build Tools install paths are detected before falling back to the default Visual Studio 2022 folders.

@@ -156,6 +156,14 @@ REM --- Visual Studio Environment (Ninja only) ---
 REM vcvarsall must be set up before cmake configure and before the build step.
 if defined BUILD_WITH_NINJA (
     set "VCVARSALL="
+    set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+    if exist "!VSWHERE!" (
+        for /f "usebackq delims=" %%I in (`"!VSWHERE!" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2^>nul`) do (
+            if exist "%%I\VC\Auxiliary\Build\vcvarsall.bat" (
+                set "VCVARSALL=%%I\VC\Auxiliary\Build\vcvarsall.bat"
+            )
+        )
+    )
     for %%E in (Community Professional Enterprise BuildTools) do (
         if exist "%ProgramFiles%\Microsoft Visual Studio\2022\%%E\VC\Auxiliary\Build\vcvarsall.bat" (
             set "VCVARSALL=%ProgramFiles%\Microsoft Visual Studio\2022\%%E\VC\Auxiliary\Build\vcvarsall.bat"
