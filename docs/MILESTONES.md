@@ -1,104 +1,78 @@
 # Milestones
 
-## Milestone 0: Repo And Planning
+Status is scoped to the current clone, not historical workspaces.
+
+## Milestone 0: Direction And Audit
 
 Status: complete
 
-Deliverables:
+- product is a full Blender-based MUNO application;
+- target is Mixar functional/layout fidelity with independent branding;
+- public Mixar source and missing components are inventoried;
+- Blender 5.0, Codex app-server, dual authentication, and provider-neutral generation are agreed.
 
-- local Git repository at `C:\DIG REPO\tools\Muno`;
-- remote configured as `https://github.com/ensong0608/MUNO.git`;
-- project plan committed;
-- engineering decisions documented;
-- open questions documented;
-- project status documented;
-- project log documented.
+## Milestone 1: Reproducible Blender 5.0 Foundation
 
-Exit criteria:
+Status: in progress
 
-- final active local repo root confirmed as `C:\DIG REPO\tools\Muno`;
-- online Git push access confirmed.
+- establish licensing and attribution; done on the foundation branch
+- pin and initialize Blender 5.0 in `upstream/`; done at `f52ba4dc...`
+- download Blender's platform dependency bundle;
+- repair repo-relative setup/build scripts;
+- generate `source/`, build, and smoke-test from a clean clone;
+- add lightweight CI/validation.
 
-Notes:
+Exit: this clone reproducibly launches a Blender 5.0 baseline.
 
-- GitHub connector visibility is unresolved, but local Git push access works.
-
-## Milestone 1: Blender Base
-
-Status: next
-
-Deliverables:
-
-- Blender added as `upstream/` submodule; done
-- generated `source/` workflow scripted; done
-- build prerequisites documented; initial notes added
-- first local source generation succeeds; done
-
-Exit criteria:
-
-- `upstream/` can be initialized from a clean clone;
-- `source/` can be regenerated without manual copying;
-- generated folders remain untracked.
-
-## Milestone 2: Mixar Analysis
+## Milestone 2: MUNO Application Shell
 
 Status: not started
 
-Deliverables:
+- import reviewed public overlay slices;
+- replace Mixar/Mixie identity and endpoints;
+- reconstruct missing editor/UI components;
+- launch without Mixar services.
 
-- Mixar repo cloned or added as reference remote outside committed source;
-- list of overlay files;
-- list of backend endpoints and environment variables;
-- list of branding assets and strings;
-- decision on reuse versus clean reimplementation.
+Exit: a MUNO-branded application shell launches and its core panels load.
 
-Exit criteria:
-
-- MUNO has a precise map of what must be replaced before any public release.
-
-## Milestone 3: MUNO Identity
+## Milestone 3: Codex Agent
 
 Status: not started
 
-Deliverables:
+- manage local Codex app-server lifecycle;
+- support ChatGPT and API-key authentication;
+- stream conversations and tool events into the UI;
+- expose controlled Blender inspection and mutation tools;
+- implement approvals, cancellation, and error recovery.
 
-- app name changed to MUNO;
-- visible Mixar/Mixie strings removed;
-- placeholder MUNO icons and splash assets added;
-- installer/app metadata updated;
-- license and attribution files updated.
+Exit: Codex can inspect and safely modify the current scene.
 
-Exit criteria:
-
-- local build no longer presents itself as Mixar.
-
-## Milestone 4: AI Abstraction
+## Milestone 4: Workflow Fidelity
 
 Status: not started
 
-Deliverables:
+- restore prompt-to-scene, moodboard, scene graph, and history workflows;
+- replace Mixie-specific protocols with Codex events/tools;
+- add relevant regression and smoke tests.
 
-- provider-neutral desktop AI client;
-- development stub backend;
-- configurable backend URL;
-- structured tool-call contract;
-- safe command execution boundaries.
+Exit: prompt-to-scene is useful without Mixar infrastructure.
 
-Exit criteria:
+## Milestone 5: Generation Providers
 
-- app can run without Mixar services and show a working MUNO AI panel using stubs.
+Status: deferred
 
-## Milestone 5: First Real AI Workflow
+- provider-neutral job, progress, result, and credential contracts;
+- asset cache/import workflow;
+- direct Hunyuan integration and additional providers.
+
+Exit: a direct 3D provider completes an end-to-end generation/import flow.
+
+## Milestone 6: Distribution
 
 Status: not started
 
-Deliverables:
+- final branding and package metadata;
+- complete source/license/notice bundles;
+- clean-machine install and authentication validation.
 
-- first provider integration selected;
-- one end-to-end AI workflow implemented;
-- result import into Blender scene;
-- error, loading, and retry states.
-
-Exit criteria:
-
-- a user can create or modify a 3D scene through MUNO AI without Mixar infrastructure.
+Exit: MUNO can be distributed with reproducible artifacts and complete notices.

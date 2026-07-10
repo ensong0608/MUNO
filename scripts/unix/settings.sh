@@ -52,9 +52,11 @@ export MUNO_BUNDLE_IDENTIFIER="${MUNO_BUNDLE_IDENTIFIER:-com.muno.muno}"
 export MUNO_BUNDLE_COPYRIGHT="${MUNO_BUNDLE_COPYRIGHT:-(C) 2026 MUNO}"
 
 # Build settings (constants)
-export BLENDER_VERSION="${BLENDER_VERSION:-5.3}"
-export PYTHON_VERSION="${PYTHON_VERSION:-3.13}"
+export BLENDER_VERSION="${BLENDER_VERSION:-5.0}"
+export PYTHON_VERSION="${PYTHON_VERSION:-3.11}"
 export REQUIRED_CMAKE_VERSION="${REQUIRED_CMAKE_VERSION:-3.16}"
+export MUNO_ENABLE_CUDA="${MUNO_ENABLE_CUDA:-OFF}"
+export MUNO_ENABLE_OPTIX="${MUNO_ENABLE_OPTIX:-OFF}"
 
 # Directory Structure
 export BUILD_DIR="${ROOT_DIR}/build"
@@ -116,7 +118,7 @@ export BUILD_CORES=${BUILD_CORES:-$DEFAULT_CORES}
 if [[ "$PLATFORM" == "macOS" ]]; then
     # macOS-specific settings
     export CMAKE_GENERATOR_ARGS=""  # Use default (Xcode or Make)
-    export BUILD_ARGS="--parallel $BUILD_CORES --config \$CMAKE_BUILD_TYPE"
+    export BUILD_ARGS="--parallel $BUILD_CORES"
 elif [[ "$PLATFORM" == "Linux" ]]; then
     # Linux-specific settings
     export CMAKE_GENERATOR_ARGS=""  # Use default (Make or Ninja)

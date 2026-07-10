@@ -1,202 +1,70 @@
 # MUNO Implementation Plan
 
-## 1. Project Goal
+This file summarizes the product plan. `ARCHITECTURE_AND_ROADMAP.md` defines phase gates; `PROJECT_STATUS.md` records the state of the current clone.
 
-Create MUNO as an independent Blender-based desktop application that keeps Blender's proven modeling foundation, replaces Mixar-specific branding and services, and adds our own AI-driven 3D creation workflow.
+## Goal
 
-The intended result is not just a visual rebrand. MUNO should become its own product with:
+Build MUNO as an independent Blender-based desktop application with the useful functionality and layout of Mixar, entirely new MUNO identity, Codex as its AI agent, and replaceable 3D generation providers.
 
-- custom branding and distribution identity;
-- a maintainable Blender overlay architecture;
-- our own AI service layer;
-- clear replacement points for third-party 3D generation models;
-- reproducible local and CI builds;
-- GPL-compliant source distribution.
-
-## 2. What We Learned From Mixar
-
-Mixar does not store the full Blender source directly in the GitHub repo. Instead, the repo uses Blender as a Git submodule:
-
-- `upstream/` points to `https://projects.blender.org/blender/blender.git`;
-- `src/` contains Mixar's modified files;
-- build scripts generate `source/` by copying Blender from `upstream/` and overlaying `src/`;
-- the final app is built from the generated `source/` directory.
-
-This is the right pattern for MUNO because Blender is large and expensive to vendor directly. We should keep our repo small and intentional by committing only MUNO-specific changes.
-
-## 3. Repository Layout
-
-Planned local layout:
+## Repository Model
 
 ```text
-C:\DIG REPO\tools\Muno\
-  .git\
-  README.md
-  docs\
-    MUNO_PLAN.md
-  upstream\      # Blender submodule
-  src\           # MUNO overlay files
-  source\        # generated, ignored
-  build\         # generated, ignored
-  scripts\
-    windows\
-    unix\
+upstream/   pinned Blender 5.0 submodule
+src/        committed MUNO overlay
+source/     generated upstream plus overlay (ignored)
+build/      generated artifacts (ignored)
+scripts/    setup, overlay, build, and validation helpers
+docs/       current state, decisions, inventory, and history
 ```
 
-Planned remote:
+Use paths relative to the repository root. The current Desktop clone is the active workspace; absolute paths in dated project-log entries are historical.
 
-```text
-https://github.com/ensong0608/MUNO
-```
+## Implementation Principles
 
-At the time this plan was created, the remote repository was not visible through the GitHub connector. We can still configure the local remote URL, but the online repo must exist before the first push succeeds.
+- Begin on Blender 5.0 to minimize Mixar compatibility risk.
+- Treat public Mixar code as a partial, licensed reference rather than a complete application snapshot.
+- Import small, reviewable overlay slices and preserve applicable notices.
+- Replace all product identity and hosted Mixar dependencies.
+- Reconstruct unavailable native editor and agent behavior as MUNO code.
+- Keep Blender tools typed, reviewable, and subject to approval boundaries.
+- Keep model-generation contracts independent of any one provider.
 
-## 4. Licensing And Branding Rules
+## Agent Direction
 
-Blender is GPL licensed, and Mixar's app source is open source. MUNO must respect the upstream license chain.
+MUNO will supervise local `codex app-server` and communicate through its structured standard-I/O protocol. It will support both ChatGPT-managed login and `OPENAI_API_KEY`.
 
-Required rules:
+The first useful AI path is prompt-to-scene:
 
-- keep license notices intact;
-- publish source for distributed GPL binaries;
-- document modifications clearly;
-- remove Mixar trademarks, logos, names, icons, and product identity;
-- replace Mixar/Mixie naming with MUNO-specific names;
-- avoid implying endorsement by Blender or Mixar.
+1. Codex receives the user request and scene context.
+2. Codex chooses explicit MUNO Blender tools.
+3. MUNO applies approval and execution rules.
+4. Tool results and scene changes stream back to the conversation.
 
-Branding work is a first-class requirement, not a cosmetic afterthought.
+Codex replaces Mixie's planning and tool-use role. External generation models remain separate jobs.
 
-## 5. Architecture Direction
+## Generation Direction
 
-MUNO should keep three layers separate:
+Define common contracts for request, credentials, progress, cancellation, results, errors, asset caching, and scene import. Direct Hunyuan integration for meshes/topology/UV/textures is desired but deferred until the application shell and Codex workflow are stable.
 
-1. Blender base
-   - Upstream Blender source, tracked as a submodule.
-   - We should avoid editing this directly unless necessary.
+## Work Order
 
-2. MUNO desktop overlay
-   - UI panels, operators, scripts, icons, app branding, bundled Python modules, and configuration.
-   - These live in `src/`.
+1. Licensing, attribution, Blender 5.0 pin, and reproducible clean-clone build.
+2. Public overlay import and MUNO rebranding.
+3. Missing UI/editor reconstruction.
+4. Codex transport, authentication, sessions, events, and lifecycle.
+5. Controlled Blender tools and prompt-to-scene.
+6. Broader workflow fidelity.
+7. Provider-neutral generation and direct Hunyuan support.
+8. Packaging, compliance, and clean-machine validation.
 
-3. MUNO AI backend
-   - Own hosted APIs for chat, tool execution, model routing, asset generation, user auth, billing if needed, and telemetry if needed.
-   - The desktop app should treat this as a configurable service endpoint.
+## Main Risks
 
-## 6. AI Feature Plan
+- The public Mixar repo omits its hosted agent/backend and required native editor sources.
+- Overlay code may depend on exact Blender revisions or private protocols.
+- Native builds are large and expensive; each slice needs a smoke gate.
+- Provider licensing, availability, cost, and API shapes may change.
+- GPL/source-distribution and third-party attribution must be tracked from import time.
 
-Initial AI capabilities should be staged:
+## First Definition Of Done
 
-### Phase A: Local App Build
-
-- clone/fork Mixar structure;
-- initialize Blender submodule;
-- reproduce a working local build;
-- confirm app launches without relying on Mixar services;
-- identify all Mixar backend calls.
-
-### Phase B: Branding And Independence
-
-- rename app identity to MUNO;
-- replace icons, splash, app metadata, installer metadata, and package names;
-- replace Mixar/Mixie UI strings;
-- update license and attribution files;
-- remove hard-coded Mixar backend URLs.
-
-### Phase C: Backend Abstraction
-
-- create a provider-neutral AI client layer;
-- define API contracts for:
-  - chat;
-  - scene inspection;
-  - Blender command/tool execution;
-  - asset search;
-  - text-to-3D;
-  - image-to-3D;
-  - authentication;
-  - usage limits;
-- add local development fallback/stub responses.
-
-### Phase D: First MUNO AI Backend
-
-- create a minimal backend service;
-- support chat-to-Blender commands;
-- support structured tool calls;
-- log request/response traces for debugging;
-- protect against unsafe arbitrary code execution;
-- add API keys or auth tokens.
-
-### Phase E: 3D Generation Integrations
-
-Evaluate providers for:
-
-- text-to-3D;
-- image-to-3D;
-- texture/material generation;
-- mesh cleanup or retopology;
-- rigging/animation assistance.
-
-Integrate behind provider interfaces so we can swap models without rewriting the Blender UI.
-
-### Phase F: Product Workflow
-
-Build MUNO-specific workflows:
-
-- prompt-to-scene;
-- selected-object editing;
-- material and texture generation;
-- asset import and cleanup;
-- procedural scene creation;
-- animation helpers;
-- versioned prompt history;
-- user asset library.
-
-## 7. Build Strategy
-
-Start with Windows because the requested local path is on Windows.
-
-Steps:
-
-1. Install required build dependencies.
-2. Add Blender as `upstream` submodule.
-3. Import Mixar's overlay/build script pattern.
-4. Generate `source/` from `upstream/` plus `src/`.
-5. Build a debug/dev version first.
-6. Build a release package later.
-
-We should not attempt full release automation until a local developer build launches reliably.
-
-## 8. Risk Areas
-
-- Blender builds are large and slow.
-- Blender's build dependencies can be brittle on Windows.
-- Mixar's AI backend is not included, so AI features will fail until replaced.
-- Some Mixar changes may be deeply coupled to their backend contracts.
-- Trademark cleanup must be thorough before public distribution.
-- GPL compliance must be tracked from the beginning.
-- 3D generation providers may have licensing, cost, and quality differences.
-
-## 9. Immediate Next Steps
-
-1. Create the local repo at `C:\DIG REPO\tools\Muno`.
-2. Add `.gitignore`, README, and this plan.
-3. Configure remote as `https://github.com/ensong0608/MUNO.git`.
-4. Add Blender upstream as a submodule.
-5. Pull Mixar source into a separate inspection area or add it as a temporary reference remote.
-6. Compare Mixar overlay files against Blender upstream.
-7. Decide whether to:
-   - fork Mixar directly and rebrand; or
-   - recreate the overlay structure cleanly from Blender plus selected Mixar ideas.
-
-Recommendation: start from Mixar's repo as a reference, but keep MUNO's committed history clean and intentional. Do not blindly preserve Mixar branding or backend assumptions.
-
-## 10. Definition Of Done For Milestone 1
-
-Milestone 1 is complete when:
-
-- `C:\DIG REPO\tools\Muno` is the active local Git repo;
-- the remote URL is configured;
-- Blender is added as a submodule;
-- generated directories are ignored;
-- project plan is committed locally;
-- we have a reproducible command sequence for initializing the source tree;
-- we know exactly where Mixar-specific backend calls and branding live.
+The foundation phase is done when this clone, from documented repo-relative commands, initializes the pinned Blender 5.0 base, generates `source/`, builds, and passes a headless smoke test without Mixar services.

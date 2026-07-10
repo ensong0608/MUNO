@@ -2,10 +2,10 @@
 
 This document records what we learned from the local Mixar reference clone and how MUNO should copy the approach.
 
-Local Mixar reference path:
+Current local Mixar reference path:
 
 ```text
-H:\TOOLS\Muno-reference\mixar-app
+C:\Users\lawre\Desktop\PROJECTS\mixar-app-upstream
 ```
 
 Reference commit inspected:
@@ -13,6 +13,12 @@ Reference commit inspected:
 ```text
 47557b7 Merge pull request #914 from Mixar-AI/develop
 ```
+
+## Completeness Warning
+
+The inspected public repository is a partial reference, not a reproducible copy of the shipped Mixar application. Its declared Blender submodule does not have a committed gitlink in the inspected tree, required native Mixie Chat editor sources are absent, and the hosted Mixie agent/backend is not published.
+
+MUNO can adapt the public overlay and reconstruct missing behavior, but cannot obtain an exact working product through a blind copy.
 
 ## What We Are Copying
 
@@ -181,12 +187,12 @@ That lowers product/release pressure, but it does not eliminate license and trad
 
 1. Add MUNO scripts that mirror Mixar's `settings.bat`, `overlay.bat`, and `build.bat` structure.
 2. Copy/import Mixar's repo-level build files and adapt names to MUNO.
-3. Decide whether to preserve the Python package name `mixar` temporarily for easier first build, or rename to `muno` immediately.
+3. Import reviewed slices into a MUNO-owned package structure, using temporary compatibility shims only where needed.
 4. Rebrand app metadata and assets.
 5. Stub/redirect Mixar backend URLs.
-6. Continue build validation after installing the missing Visual Studio C++ workload.
+6. Validate each slice against the agreed Blender 5.0 base.
 ## MUNO Build Scripts Added
 
 MUNO now has adapted versions of Mixar's repo-level build scripts. These preserve the Mixar build pattern but use MUNO names and local backend defaults.
 
-The scripts are not a full working app by themselves. Mixar's `src/` overlay still needs to be imported/adapted, and the local machine still needs the missing Visual Studio C++ workload before a full build can complete.
+The scripts are not a full working app by themselves. Mixar's public `src/` overlay still needs to be imported/adapted, missing source must be reconstructed, and the current clone still needs an initialized Blender 5.0 source tree.

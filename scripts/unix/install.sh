@@ -28,4 +28,4 @@ echo "Installing scripts using CMake..."
 cmake --build "$BUILD_ENV_DIR" --target install --config "$BLENDER_BUILD_ENV"
 
 echo "Scripts installation complete."
-echo "Run MUNO using: $BUILD_ENV_DIR/bin/MUNO.app/Contents/MacOS/MUNO"
+echo "Run MUNO using: $SCRIPT_DIR/run.sh $MUNO_ENV"

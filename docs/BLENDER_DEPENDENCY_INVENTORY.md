@@ -2,11 +2,11 @@
 
 Last updated: 2026-07-09
 
-This document records the Windows dependency bundle downloaded by Blender's official update process for the MUNO checkout.
+This document records the Windows dependency bundle downloaded by Blender's official update process in the historical 2026-07-09 workspace. It is not an inventory of the current Desktop clone or the Blender 5.0 target.
 
-## Local Bundle
+## Historical Local Bundle
 
-Path:
+Historical path:
 
 ```text
 C:\DIG REPO\tools\Muno\upstream\lib\windows_x64

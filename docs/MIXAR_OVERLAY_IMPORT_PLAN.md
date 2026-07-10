@@ -7,7 +7,7 @@ This document records what was found in the local Mixar reference checkout and h
 Reference checkout:
 
 ```text
-H:\TOOLS\Muno-reference\mixar-app
+C:\Users\lawre\Desktop\PROJECTS\mixar-app-upstream
 ```
 
 Reference commit:
@@ -37,6 +37,14 @@ Important finding: this Mixar checkout does not contain `src/source/blender` or 
 - `src/intern/ghost/intern/*`
 - release/package assets under `src/release`
 - Python runtime/add-on code under `src/scripts/mixar`
+
+Additional completeness findings from the audit:
+
+- the repository declares Blender as a submodule but the inspected tree does not commit its gitlink;
+- native Mixie Chat editor files referenced by the overlay are absent;
+- Mixie's planner, tools, routing, and provider orchestration are hosted and unpublished.
+
+Consequently, this inventory is an import reference rather than a claim that the public repository can reproduce the shipped app.
 
 ## Python Module Inventory
 
@@ -106,11 +114,11 @@ Do not blindly copy the entire Mixar `src/` overlay in one step. The baseline MU
 Recommended sequence:
 
 1. Import Python package skeleton as `src/scripts/muno`, rebranded from `mixar`.
-2. Import only the chat/API/config/common modules needed to load a MUNO panel and connect to a local backend placeholder.
-3. Add compatibility shims where the Mixar code expects custom editor spaces that MUNO has not imported yet.
+2. Import only the chat/config/common modules needed to load a MUNO panel and connect to local Codex app-server.
+3. Reconstruct the missing editor surface and add narrow compatibility shims where public modules expect unavailable native spaces.
 4. Run incremental build and headless smoke test after each import slice.
 5. Import moodboard/prompt-to-scene UI after the chat/API layer loads.
-6. Import generation/job queue pieces only after MUNO has a local backend contract.
+6. Import generation/job queue pieces only after MUNO has a provider-neutral job contract.
 7. Defer paint/UV/texel-density modules until prompt-to-scene is stable.
 8. Defer release icons, splash, and installer branding until runtime behavior is working.
 
@@ -127,10 +135,10 @@ When importing:
 
 ## Current State
 
-MUNO currently has a validated baseline native build:
+Historical baseline output existed in another workspace at:
 
 ```text
 C:\DIG REPO\tools\Muno\build\Prod\bin\muno.exe
 ```
 
-Current caveat: `muno.exe` is a copy of the built `blender.exe` baseline. The Mixar AI overlay is not imported yet.
+That executable was a copied Blender 5.3-alpha baseline, not the current Blender 5.0 target. In this Desktop clone, `src/` is placeholder-only, `upstream/` is uninitialized, and no build exists.

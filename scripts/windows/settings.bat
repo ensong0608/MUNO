@@ -51,8 +51,8 @@ if not defined MUNO_BUNDLE_IDENTIFIER set "MUNO_BUNDLE_IDENTIFIER=com.muno.muno"
 if not defined MUNO_BUNDLE_COPYRIGHT set "MUNO_BUNDLE_COPYRIGHT=(C) 2026 MUNO"
 
 REM Build settings (constants)
-if not defined BLENDER_VERSION set "BLENDER_VERSION=5.3"
-if not defined PYTHON_VERSION set "PYTHON_VERSION=3.13"
+if not defined BLENDER_VERSION set "BLENDER_VERSION=5.0"
+if not defined PYTHON_VERSION set "PYTHON_VERSION=3.11"
 if not defined REQUIRED_CMAKE_VERSION set "REQUIRED_CMAKE_VERSION=3.16"
 
 REM Windows-specific build settings
@@ -97,8 +97,9 @@ if not defined BUILD_CORES (
     echo Using custom BUILD_CORES: %BUILD_CORES%
 )
 
-REM Windows-specific build settings - Select generator based on BUILD_WITH_NINJA
-if defined BUILD_WITH_NINJA (
+REM Windows-specific build settings - only the explicit value 1 selects Ninja.
+REM In particular, BUILD_WITH_NINJA=0 must remain an MSBuild request.
+if "%BUILD_WITH_NINJA%"=="1" (
     set "CMAKE_GENERATOR_ARGS=-G Ninja"
     set "BUILD_ARGS=--parallel %BUILD_CORES%"
 ) else (

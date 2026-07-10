@@ -2,6 +2,30 @@
 
 This log records what happened, what worked, and what did not work so we do not repeat the same investigations.
 
+Paths in dated entries are historical facts. They do not identify the current active checkout unless an entry explicitly says so.
+
+## 2026-07-10
+
+### Reconciled active clone and product direction
+
+Current work moved to the clone containing this log, presently:
+
+```text
+C:\Users\lawre\Desktop\PROJECTS\MUNO
+```
+
+This clone was verified as an uninitialized scaffold: `src/` contains only `.gitkeep`, the Blender submodule is not initialized, and no generated `source/` or `build/` exists. The prior Blender 5.3-alpha build at `C:\DIG REPO\tools\Muno` remains a historical validation only.
+
+Confirmed decisions:
+
+- match Mixar functionality and layout with new MUNO branding;
+- use Blender 5.0 as the first compatibility base;
+- replace Mixie with local Codex app-server;
+- support ChatGPT and API-key Codex authentication;
+- use provider-neutral generation contracts and defer direct Hunyuan integration.
+
+The public Mixar clone at `C:\Users\lawre\Desktop\PROJECTS\mixar-app-upstream` was found to be incomplete: the Blender gitlink, native Mixie Chat editor sources, and hosted agent/backend implementation are unavailable. MUNO must reconstruct those areas.
+
 ## 2026-07-08
 
 ### Created local repo

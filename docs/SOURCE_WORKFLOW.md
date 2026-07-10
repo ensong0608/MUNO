@@ -1,6 +1,6 @@
 # Source Generation Workflow
 
-MUNO uses an overlay workflow so the repository stays small while still producing a complete Blender-based source tree locally.
+MUNO uses an overlay workflow so the repository stays small while still producing a complete Blender-based source tree locally. Run all commands from the repository root.
 
 ## Directories
 
@@ -53,4 +53,4 @@ The script uses `rsync` when available and falls back to `tar`.
 
 ## Current State
 
-At the time this workflow was added, `src/` contains only `.gitkeep`, so generated `source/` is a clean Blender copy.
+In the current Desktop clone, `src/` contains only `.gitkeep`, `upstream/` is not initialized, and `source/` does not exist. Initialize and pin the agreed Blender 5.0 base before using the generator. Historical Blender 5.3-alpha generation in another checkout does not establish the current target.
