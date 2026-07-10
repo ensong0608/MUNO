@@ -330,11 +330,25 @@ if %ERRORLEVEL% neq 0 (
     echo Error: Install failed
     exit /b 1
 )
+
+if exist "%BUILD_ENV_DIR%\bin\blender.exe" (
+    copy /y "%BUILD_ENV_DIR%\bin\blender.exe" "%BUILD_ENV_DIR%\bin\%MUNO_EXECUTABLE_NAME%.exe" >nul
+)
 echo [6/8] Build complete at %TIME%
 
 REM --- Find embedded Python (used by steps 7 and 8) ---
 set "PY_BASE=%BUILD_ENV_DIR%\bin"
 set "PYTHON_BIN="
+if not exist "%PY_BASE%\%BLENDER_VERSION%\python\bin\python.exe" (
+    for /d %%D in ("%PY_BASE%\*") do (
+        if exist "%%~D\python\bin\python.exe" (
+            set "BLENDER_VERSION=%%~nxD"
+            goto :detected_blender_version
+        )
+    )
+)
+
+:detected_blender_version
 for %%P in (
     "%PY_BASE%\%BLENDER_VERSION%\python\bin\python.exe"
     "%PY_BASE%\%BLENDER_VERSION%\python\bin\python3.exe"

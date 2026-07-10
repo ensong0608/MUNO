@@ -42,25 +42,29 @@ The local `main` branch tracks `origin/main`.
 - Blender's Windows dependency bundle was downloaded into `upstream\lib\windows_x64` and copied into generated `source\lib\windows_x64`.
 - Current measured size: `upstream\lib\windows_x64` is about 6.51 GB; generated `source\lib\windows_x64` is also about 6.51 GB.
 - Workspace copied from `H:\TOOLS\Muno` to local storage at `C:\DIG REPO\tools\Muno` to avoid network-share build slowness.
+- First native Windows Ninja build completed successfully from the `C:` workspace.
+- Build output exists at `C:\DIG REPO\tools\Muno\build\Prod\bin`.
+- `muno.exe` exists as a copy of the current built `blender.exe` baseline.
+- Headless smoke test passed: built executable reported `MUNO_SMOKE_OK 5.3.0 Alpha`.
 
 ## Not Working Or Unresolved
 
 - GitHub connector still returns `404` for `ensong0608/MUNO`, even though local `git push` succeeds.
 - Blender submodule added at `upstream/`, pointing to `https://projects.blender.org/blender/blender.git`.
 - Mixar repo cloned locally for analysis at `H:\TOOLS\Muno-reference\mixar-app`.
-- Full Blender build has not been validated yet.
-- `upstream/` has a local submodule pointer change from `8704773557367b9955894409616bb13b9d5c064a` to `fc4e62d47f3d5c2e395ca2d7ab47e4c723ad7761`; decide whether to keep and commit that newer Blender pin.
 - No MUNO backend exists yet; scripts default to local placeholder URLs.
 - No AI provider has been selected yet.
 - No MUNO branding assets exist yet.
+- Deep binary/app branding is not complete yet; the current `muno.exe` is a wrapper-level executable copy of the baseline Blender build.
+- Mixar's AI overlay has not been imported yet; `src/` still contains only the placeholder file.
 
 ## Next Engineering Steps
 
 1. Import/adapt Mixar `src/` overlay into MUNO `src/`.
 2. Rebrand overlay identity/assets from Mixar to MUNO.
 3. Stub or redirect Mixar backend calls to local MUNO placeholders.
-4. Decide whether to keep the updated Blender submodule pin.
-5. Re-run Blender/MUNO build validation from the generated `source/` tree.
+4. Import/adapt Mixar's AI overlay into MUNO `src/`.
+5. Validate that the imported overlay still builds incrementally.
 6. Begin prompt-to-scene backend/API design.
 
 ## Notes

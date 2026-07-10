@@ -112,22 +112,34 @@ Overlay validation result:
 - no stderr output;
 - `source/` remains ignored by Git.
 
-## Not Validated Yet
+## Native Build Validation
 
-The full build is not validated yet.
+The baseline Windows Ninja build has been validated from:
 
-Known blockers:
+```text
+C:\DIG REPO\tools\Muno
+```
 
-- Visual Studio Build Tools exists at `C:\BuildTools`, but the required C++ workload is missing.
-- `cmake` is not currently on PATH.
-- Mixar's full `src/` overlay has not yet been imported/adapted into MUNO.
+Validated output:
 
-Until those are handled, `scripts/windows/build.bat` defines the intended MUNO build flow but should not be expected to produce a working `muno.exe`.
+- `C:\DIG REPO\tools\Muno\build\Prod\bin\muno.exe`
+- `C:\DIG REPO\tools\Muno\build\Prod\bin\5.3\config\muno.json`
+- embedded Python package installation under `bin\5.3\python\lib\site-packages`
+
+Recommended local settings for this machine:
+
+```bat
+set BUILD_CORES=6
+set ROBOCOPY_THREADS=8
+scripts\windows\build_ninja.bat
+```
+
+The current `muno.exe` is a baseline executable copy of Blender's built `blender.exe`. Deeper binary branding and the Mixar AI overlay are still pending.
 
 ## Next Steps
 
 1. Import/adapt Mixar's `src/` overlay into MUNO's `src/`.
 2. Rebrand runtime identity and assets inside the overlay.
 3. Stub or redirect Mixar backend clients.
-4. Install missing Visual Studio Build Tools C++ workload when approved.
-5. Re-run Blender/MUNO build validation.
+4. Import/adapt Mixar's `src/` overlay.
+5. Re-run incremental build validation after overlay import.

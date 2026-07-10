@@ -55,5 +55,5 @@ if !ERRORLEVEL! neq 0 (
 )
 
 echo Scripts installation complete.
-echo Run MUNO using: %BUILD_ENV_DIR%\bin\%BLENDER_BUILD_ENV%\muno.exe
+echo Run MUNO using: %BUILD_ENV_DIR%\bin\muno.exe
 exit /b 0

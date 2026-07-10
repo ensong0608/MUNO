@@ -51,8 +51,8 @@ if not defined MUNO_BUNDLE_IDENTIFIER set "MUNO_BUNDLE_IDENTIFIER=com.muno.muno"
 if not defined MUNO_BUNDLE_COPYRIGHT set "MUNO_BUNDLE_COPYRIGHT=(C) 2026 MUNO"
 
 REM Build settings (constants)
-if not defined BLENDER_VERSION set "BLENDER_VERSION=5.0"
-if not defined PYTHON_VERSION set "PYTHON_VERSION=3.11"
+if not defined BLENDER_VERSION set "BLENDER_VERSION=5.3"
+if not defined PYTHON_VERSION set "PYTHON_VERSION=3.13"
 if not defined REQUIRED_CMAKE_VERSION set "REQUIRED_CMAKE_VERSION=3.16"
 
 REM Windows-specific build settings

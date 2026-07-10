@@ -331,3 +331,65 @@ C:\BuildTools
 ```
 
 Updated `scripts/windows/build.bat` to use `vswhere.exe` when locating `vcvarsall.bat`, so custom Build Tools install paths are detected before falling back to the default Visual Studio 2022 folders.
+
+### Completed first native Windows baseline build
+
+The first native build completed from:
+
+```text
+C:\DIG REPO\tools\Muno
+```
+
+The first attempt used:
+
+```text
+BUILD_CORES=10
+ROBOCOPY_THREADS=16
+scripts\windows\build_ninja.bat
+```
+
+That run reached roughly `4669/8138` compile steps before the PC froze and the process was killed. Ninja's partial build cache survived.
+
+The build was resumed with lower system pressure:
+
+```text
+BUILD_CORES=6
+ROBOCOPY_THREADS=8
+scripts\windows\build_ninja.bat
+```
+
+Result:
+
+- Ninja resumed from the partial build instead of starting over.
+- Native compile completed.
+- CMake install completed into `C:\DIG REPO\tools\Muno\build\Prod\bin`.
+- The built Blender baseline is `5.3.0 Alpha` from upstream commit `fc4e62d47f3d`.
+- CUDA and OptiX were not installed, so those paths were disabled by the build wrapper for this baseline.
+
+Initial post-build failure:
+
+```text
+Error: Python binary not found under: C:\DIG REPO\tools\Muno\build\Prod\bin\5.0\python\bin
+```
+
+Cause: the local Blender checkout installs runtime files under `bin\5.3`, not `bin\5.0`.
+
+Fix applied:
+
+- Updated default `BLENDER_VERSION` to `5.3`.
+- Updated default `PYTHON_VERSION` to `3.13`.
+- Added Windows build wrapper fallback detection for the installed runtime folder containing `python\bin\python.exe`.
+- Added a post-install copy from `blender.exe` to `muno.exe` so the MUNO run path exists while deeper binary rebranding is deferred.
+
+Post-build validation:
+
+- `C:\DIG REPO\tools\Muno\build\Prod\bin\muno.exe` exists.
+- `C:\DIG REPO\tools\Muno\build\Prod\bin\5.3\config\muno.json` was generated.
+- Embedded Python package install succeeded for `websocket-client`, `httpx`, `mistune`, `Pillow`, `keyring`, and `pywin32`.
+- Headless smoke test passed with marker text:
+
+```text
+MUNO_SMOKE_OK 5.3.0 Alpha
+```
+
+Current caveat: this is a baseline Blender build with MUNO wrapper/config scaffolding. It is not yet the Mixar AI overlay or full MUNO branding.

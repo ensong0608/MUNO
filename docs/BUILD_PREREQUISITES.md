@@ -118,6 +118,22 @@ source\build_files\build_environment\windows\vsconfig
 
 The Visual Studio C++ workload blocker has been resolved. The next build validation should use the Visual Studio developer environment so CMake, Ninja, and MSVC are available.
 
+The active Blender checkout currently installs as Blender `5.3.0 Alpha` and uses embedded Python `3.13.13`:
+
+```text
+C:\DIG REPO\tools\Muno\build\Prod\bin\5.3\python\bin\python.exe
+```
+
+The first successful baseline build used:
+
+```bat
+set BUILD_CORES=6
+set ROBOCOPY_THREADS=8
+scripts\windows\build_ninja.bat
+```
+
+Using `BUILD_CORES=10` made the PC freeze during the first compile. Prefer `6` on this machine unless we intentionally retest higher parallelism.
+
 ## Local Dependency Bundle Size
 
 Blender's Windows dependency bundle is intentionally large:

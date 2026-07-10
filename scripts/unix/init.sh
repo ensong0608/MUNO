@@ -11,7 +11,7 @@ cd upstream
 # Download LFS files using make update
 if ! make update; then
     echo "Try running 'make update' manually in the upstream directory to download LFS files"
-    echo "If you see 'command not found' errors for python3.11, run:"
+    echo "If you see Python/Git LFS download errors, run:"
     echo "  cd upstream/lib/macos_arm64 && git lfs pull"
 fi
 git lfs pull
